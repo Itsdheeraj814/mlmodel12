@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2b2b2b;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+            background-color: rgba(48, 48, 48, 0.9);
+            width: 450px;
+            transition: all 0.5s ease;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        h1 {
+            color: #f0f0f0;
+            margin-bottom: 20px;
+        }
+        input[type="file"], button {
+            margin: 15px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-size: 16px;
+        }
+        input[type="file"] {
+            background-color: #555;
+            color: #f0f0f0;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .prediction {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .error {
+            background-color: #ff6b6b;
+        }
+        .success {
+            background-color: #4caf50;
+        }
+        .preview {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 15px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Plant Disease Prediction</h1>
+        
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required onchange="previewImage(event)">
+            
+            <!-- Image Preview Section -->
+            {% if image_data %}
+                <img id="image-preview" class="preview" src="data:image/png;base64,{{ image_data }}" alt="Uploaded Image">
+            {% else %}
+                <img id="image-preview" class="preview" style="display: none;" alt="Uploaded Image">
+            {% endif %}
+            
+            <!-- Prediction Button -->
+            <button type="submit">Predict</button>
+        </form>
+
+        <!-- Prediction Result Display -->
+        {% if prediction %}
+            <div class="prediction {{ 'error' if prediction == 'The uploaded image does not appear to contain a leaf or plant.' else 'success' }}">
+                <strong>Prediction:</strong> {{ prediction }}
+            </div>
+        {% endif %}
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="prediction error">
+                    <strong>Error:</strong> {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <script>
+        // JavaScript for displaying selected image preview
+        function previewImage(event) {
+            const imagePreview = document.getElementById('image-preview');
+            imagePreview.src = URL.createObjectURL(event.target.files[0]);
+            imagePreview.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
