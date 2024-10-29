@@ -1,4 +1,4 @@
-﻿absl-py==2.1.0
+absl-py==2.1.0
 astunparse==1.6.3
 blinker==1.8.2
 certifi==2024.8.30
@@ -19,7 +19,7 @@ importlib_metadata==8.5.0
 importlib_resources==6.4.5
 itsdangerous==2.2.0
 Jinja2==3.1.4
-keras==3.6.0
+keras==2.12.0  # Adjust Keras for compatibility
 kiwisolver==1.4.7
 libclang==18.1.1
 Markdown==3.7
@@ -29,7 +29,7 @@ matplotlib==3.7.1
 mdurl==0.1.2
 ml-dtypes==0.4.1
 namex==0.0.8
-numpy==1.26.4
+numpy==1.24.0  # Adjust NumPy if needed
 opt_einsum==3.4.0
 optree==0.13.0
 packaging==24.1
@@ -41,11 +41,9 @@ python-dateutil==2.9.0.post0
 requests==2.32.3
 rich==13.9.3
 six==1.16.0
-tensorboard==2.18.0
-tensorboard-data-server==0.7.2
-tensorflow==2.10.0
-tensorflow-io-gcs-filesystem==0.31.0
-tensorflow_intel==2.10.0
+tensorboard==2.10.0  # Adjust TensorBoard for compatibility
+tensorflow==2.9.0  # Downgrade TensorFlow
+# tensorflow_intel==2.10.0  # Remove this line
 termcolor==2.5.0
 typing_extensions==4.12.2
 urllib3==2.2.3
